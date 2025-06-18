@@ -150,10 +150,10 @@ function calculateTime() {
 
 	for (let i = upcomingMaintenance - 1; i >= 0; i--) {
 		let ds = new Date(statusResult.data.result.maintenance.upcoming[i].datetime_planned_start)
-		dateTimeStart = ds.toLocaleString();
+		dateTimeStart = ds.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
 
 		let de = new Date(statusResult.data.result.maintenance.upcoming[i].datetime_planned_end)
-		dateTimeEnd = de.toLocaleString();
+		dateTimeEnd = de.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
 
 		// Calculate time until maintenance to see if upcoming maintenance alert should be shown
 		let timeUntil = ds - d;
@@ -419,8 +419,7 @@ function makeStatus(queryStringParameters) {
 				}
 			],
 			"link": {
-				"relativePath": `./status/component/${status.id}`,
-				"accessory": "button_drilldown"
+				"relativePath": `./status/component/${status.id}`
 			}
 		}
 
@@ -639,10 +638,10 @@ function makeMaintenanceDetails(maintenanceId) {
 			affectedComponents = statusResult.data.result.maintenance.upcoming[i].components_affected.length;
 
 			let ds = new Date(statusResult.data.result.maintenance.upcoming[i].datetime_planned_start)
-			dateTimeStart = ds.toLocaleString();
+			dateTimeStart = ds.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
 
 			let de = new Date(statusResult.data.result.maintenance.upcoming[i].datetime_planned_end)
-			dateTimeEnd = de.toLocaleString();
+			dateTimeEnd = de.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
 
 			// Calculate time until maintenance to see if upcoming maintenance alert should be shown
 			let timeUntil = ds - d;
@@ -816,9 +815,9 @@ function makeMaintenanceDetails(maintenanceId) {
 				{
 					"elementType": "detail",
 					"description": "Maintenance Details:",
-					"titleLineHeight": "0%",
-					"bylineLineHeight": "0%",
-					"byline": `Last updated: ${date.toLocaleString()}`,
+					"titleLineHeight": "xxtight",
+					"bylineLineHeight": "xxtight",
+					"byline": `Last updated: ${date.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })}`,
 					"body": maintDetail
 				},
 				{
@@ -1031,16 +1030,14 @@ function makeComponentDetails(componentId) {
 			let listItem = {
 				"title": statusArray[containerId].containers[i].name,
 				"labelTextColor": "#006E33",
-				"label": statusArray[containerId].containers[i].status,
-				"accessory": "confirm"
+				"label": statusArray[containerId].containers[i].status
 			}
 			componentList.items.push(listItem);
 		} else {
 			let listItem = {
 				"title": statusArray[containerId].containers[i].name,
 				"labelTextColor": "#F4364C",
-				"label": statusArray[containerId].containers[i].status,
-				"accessory": "notification_warning"
+				"label": statusArray[containerId].containers[i].status
 			}
 			componentList.items.push(listItem);
 		}
